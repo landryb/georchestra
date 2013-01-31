@@ -207,6 +207,10 @@ GEOR.wmc = (function() {
                 return;
             }
 
+            if (newContext.title !== undefined) {
+                Ext.get('maintitle').update(newContext.title);
+            }
+
             if(map.getProjection() && (newContext.projection !== map.getProjection())) {
                 // bounding box from wmc does not have the same projection system
                 // as the current map
