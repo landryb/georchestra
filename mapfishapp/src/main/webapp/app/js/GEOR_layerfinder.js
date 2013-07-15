@@ -148,7 +148,15 @@ GEOR.layerfinder = (function() {
             fieldLabel: tr("Choose a WMTS server: "),
             store: new GEOR.ows.WMTSCapabilities({
                 mapSRS: mapSRS,
-                storeOptions: commonStoreOptions
+                storeOptions: commonStoreOptions /*Ext.apply({
+                    listeners: {
+                        "loadexception": function() {
+                            GEOR.util.errorDialog({
+                                msg: tr(arguments[3])
+                            });
+                        }
+                    }
+                }, commonStoreOptions)*/
             }),
             servers: GEOR.config.WMTS_SERVERS,
             columns: [

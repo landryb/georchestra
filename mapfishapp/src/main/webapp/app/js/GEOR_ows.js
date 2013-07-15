@@ -136,13 +136,13 @@ GEOR.ows = (function() {
      */
     var loadStore = function(store, success, failure, scope) {
         store.on({
-            load: function() {
+            "load": function() {
                 store.purgeListeners();
                 if (success) {
                     success.apply(scope, arguments);
                 }
             },
-            loadexception: function() {
+            "loadexception": function() {
                 store.purgeListeners();
                 if (failure) {
                     failure.apply(scope, arguments);
@@ -479,12 +479,13 @@ GEOR.ows = (function() {
                     var mapSRS = options.mapSRS ||
                         GeoExt.MapPanel.guess().map.getProjection();
                     for (var i=0, l=tileMatrixSetLinks.length; i<l; i++) {
+                        // this supposes that TileMatrixSets are named by their projection:
                         if (tileMatrixSetLinks[i].tileMatrixSet === mapSRS) {
                             return tileMatrixSetLinks[i].tileMatrixSet;
                         }
                     }
-                    // TODO: handle the case when there is no suitable TileMatrixSet for the current map projection !!!
-                    // TODO: handle the case when the server resolutions do not match those from the current config !!!
+                    //throw ("no suitable tile matrix set found, using the first one");
+                    // TODO: offer a way to choose the tile matrix set in a combo (2-step process: capabilities - matrix set - layers)
                     return null;
                 }
             }, options.storeOptions);
